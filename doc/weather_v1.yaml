@@ -70,6 +70,10 @@ components:
           format: date
           description: Current local date, format YYYY-MM-DD
           example: 2025-03-27
+        weather:
+          type: string
+          description: The weather
+          example: Cloudy
     Error:
       type: object
       properties:
