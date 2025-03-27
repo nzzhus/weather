@@ -1,0 +1,91 @@
+openapi: 3.1.0
+
+info:
+  title: Simple Weather API
+  description: Simple Weather API to return city's current weather details
+  version: v1
+
+servers:
+  - url: http://localhost:9595/api/v1
+    description: Developer env
+
+tags:
+  - name: "Weather"
+    description: "Api for city's current weather"
+
+paths:
+  /weather:
+    get:
+      summary: Get current weather
+      description: query current weather by city's name, non case sensitive.
+      tags:
+        - "Weather"
+      parameters:
+        - name: city
+          in: query
+          required: true
+          description: Name of the city
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response with weather data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherResponse'
+        "404":
+          description: City not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Weather:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City Name
+          example: Auckland
+        temperature:
+          type: string
+          description: Current temperature in Auckland
+          example: 24
+        unit:
+          type: string
+          enum:
+            - C
+            - F
+          description: temperature's unit, can be C-Celsius, F-Fahrenheit, default is C
+        date:
+          type: string
+          format: date
+          description: Current local date, format YYYY-MM-DD
+          example: 2025-03-27
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Response code
+          example: 404
+        error_code:
+          type: string
+          description: Error code
+          example: CITY_NOT_FOUND
+        detail:
+          type: string
+          description: The relevant data
+          example: New City
+        error_message:
+          type: string
+          description: Human read in English
+          example: City not found
