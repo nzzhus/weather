@@ -33,19 +33,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WeatherResponse'
+                $ref: '#/components/schemas/Weather'
         "404":
           description: City not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/Error'
         "500":
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Weather:
