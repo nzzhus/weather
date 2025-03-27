@@ -2,5 +2,10 @@ spring:
     application:
         name: weather
 
+weather:
+    provider:
+        base: http://localhost:9597
+        weather: /weather/current
+
 server:
     port: ${PORT:9595}

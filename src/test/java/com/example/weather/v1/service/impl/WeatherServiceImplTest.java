@@ -3,6 +3,7 @@ package com.example.weather.v1.service.impl;
 import com.example.weather.entity.Weather;
 import com.example.weather.exception.NotFoundException;
 import com.example.weather.repository.WeatherRepository;
+import com.example.weather.support.WeatherSupport;
 import com.example.weather.v1.mapper.WeatherMapper;
 import com.example.weather.v1.model.WeatherDto;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.*;
 public class WeatherServiceImplTest {
 
     @Mock
-    private WeatherRepository weatherRepository;
+    private WeatherSupport weatherSupport;
     @Mock
     private WeatherMapper weatherMapper;
     @InjectMocks
@@ -35,7 +36,7 @@ public class WeatherServiceImplTest {
     @Test
     @DisplayName("When runtime exception thrown from repository, the exception should throw")
     void getWeatherRuntimeException() {
-        when(weatherRepository.findWeatherByCity(anyString())).thenThrow(new RuntimeException("Test"));
+        when(weatherSupport.getWeatherByCity(anyString())).thenThrow(new RuntimeException("Test"));
 
         RuntimeException ex = assertThrows(RuntimeException.class, () -> weatherService.getWeather("any"));
         assertEquals("Test", ex.getMessage());
@@ -47,7 +48,7 @@ public class WeatherServiceImplTest {
         NotFoundException notFound = assertThrows(NotFoundException.class, () -> weatherService.getWeather("any"));
         assertEquals(CITY_NOT_FOUND, notFound.getCode());
         assertEquals("any", notFound.getDetail());
-        verify(weatherRepository).findWeatherByCity("any");
+        verify(weatherSupport).getWeatherByCity("any");
         verify(weatherMapper, never()).toDto(any(Weather.class));
     }
 
@@ -56,13 +57,13 @@ public class WeatherServiceImplTest {
     void getWeather() {
         Weather entity = Mockito.mock(Weather.class);
         WeatherDto dto = Mockito.mock(WeatherDto.class);
-        when(weatherRepository.findWeatherByCity("any")).thenReturn(Optional.of(entity));
+        when(weatherSupport.getWeatherByCity("any")).thenReturn(Optional.of(entity));
         when(weatherMapper.toDto(entity)).thenReturn(dto);
 
         WeatherDto anyWeather = weatherService.getWeather("any");
 
         assertEquals(dto, anyWeather);
-        verify(weatherRepository).findWeatherByCity("any");
+        verify(weatherSupport).getWeatherByCity("any");
         verify(weatherMapper).toDto(entity);
     }
 

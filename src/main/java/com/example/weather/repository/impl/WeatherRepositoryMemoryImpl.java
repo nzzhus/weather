@@ -29,4 +29,19 @@ public class WeatherRepositoryMemoryImpl implements WeatherRepository {
         Objects.requireNonNull(city, "City was null");
         return Optional.ofNullable(weathers.get(city.trim().toLowerCase()));
     }
+
+    @Override
+    public Weather save(Weather weather) {
+        Weather save = Weather.builder().id(weathers.size()+1L)
+                .city(weather.city())
+                .weather(weather.weather())
+                .temperature(weather.temperature())
+                .date(weather.date())
+                .unit(weather.unit())
+                .build();
+
+        weathers.put(save.city().toLowerCase(), save);
+
+        return save;
+    }
 }

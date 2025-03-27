@@ -8,4 +8,6 @@ public interface WeatherRepository {
 
     Optional<Weather> findWeatherByCity(String city);
 
+    Weather save(Weather weather);
+
 }
