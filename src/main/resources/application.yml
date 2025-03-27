@@ -1,0 +1,6 @@
+spring:
+    application:
+        name: weather
+
+server:
+    port: ${PORT:9595}
