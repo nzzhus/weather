@@ -14,6 +14,9 @@ import static com.example.weather.exception.ErrorCode.CITY_NOT_FOUND;
 
 @Slf4j
 @RestControllerAdvice
+/**
+ * Global exception handler for controllers
+ */
 public class WeatherExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({NotFoundException.class})

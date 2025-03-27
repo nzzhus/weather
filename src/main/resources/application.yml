@@ -4,7 +4,7 @@ spring:
 
 weather:
     provider:
-        base: http://localhost:9597
+        base: {PROVIDER_BASE:http://localhost:9597}
         weather: /weather/current
 
 server:

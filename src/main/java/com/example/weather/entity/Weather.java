@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Builder
+/**
+ * Represent a row data in weather table.
+ */
 public record Weather(Long id, String city, String temperature, Unit unit, LocalDate date, String weather) {
     public Weather{
         Objects.requireNonNull(city);
