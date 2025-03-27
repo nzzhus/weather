@@ -21,6 +21,7 @@ public class WeatherProviderRemoteImpl implements WeatherProvider {
 
     @Override
     public WeatherResponse fetchWeather(String city) {
+        log.debug("Call remote weather service {}{} for city {}", weatherProviderConfig.getBase(), weatherProviderConfig.getWeather(), city);
         return providerClient
                 .get()
                 .uri(weatherProviderConfig.getWeather())

@@ -4,8 +4,14 @@ spring:
 
 weather:
     provider:
-        base: {PROVIDER_BASE:http://localhost:9597}
+        base: ${PROVIDER_BASE:http://localhost:9597}
         weather: /weather/current
+
+logging:
+    level:
+        root: INFO
+    pattern:
+        console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 
 server:
     port: ${PORT:9595}
